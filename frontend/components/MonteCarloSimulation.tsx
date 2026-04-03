@@ -13,8 +13,9 @@ export default function MonteCarloSimulation() {
   const runSimulation = async () => {
     setLoading(true);
     setError(null);
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     try {
-      const response = await axios.get("http://localhost:8000/api/scenarios");
+      const response = await axios.get(`${API_BASE_URL}/api/scenarios`);
       setSimulationData(response.data);
     } catch (err: any) {
       setError(err.response?.data?.detail || "Simulation failed.");

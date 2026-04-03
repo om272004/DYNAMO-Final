@@ -33,8 +33,10 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps) {
     const formData = new FormData();
     formData.append("file", file);
 
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     try {
-      const response = await axios.post("http://localhost:8000/api/upload", formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -46,6 +48,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps) {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="bg-[#160a0a] border border-red-500/20 p-5 rounded-md shadow-lg">

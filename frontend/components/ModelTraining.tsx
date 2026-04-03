@@ -40,8 +40,10 @@ export default function ModelTraining({ numericColumns, onTrainSuccess }: ModelT
     setIsTraining(true);
     setError(null);
 
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     try {
-      const response = await axios.post("http://localhost:8000/api/train", {
+      const response = await axios.post(`${API_BASE_URL}/api/train`, {
         feature_cols: featureCols,
         target_col: targetCol,
         test_size: testSize

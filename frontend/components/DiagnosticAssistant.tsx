@@ -38,11 +38,13 @@ export default function DiagnosticAssistant({ liveData }: DiagnosticAssistantPro
     const userMessage = { role: "user", content: textToSend };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
-    if (!overrideText) setInput(""); // Only clear input box if user typed it
+    if (!overrideText) setInput(""); 
     setLoading(true);
 
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     try {
-      const response = await axios.post("http://localhost:8000/api/chat", {
+      const response = await axios.post(`${API_BASE_URL}/api/chat`, {
         messages: newMessages.map(m => ({
           role: m.role === "assistant" ? "assistant" : "user",
           content: m.content
